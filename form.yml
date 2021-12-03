@@ -14,10 +14,11 @@ cluster: 'reindeerpizza'
 attributes:
   mode:
     widget: 'radio'
-    value: '1'
+    label: 'Jupyter Platform'
+    checked: '1'
     options:
-      - ['1', 'Jupyter Lab']
-      - ['0', 'Jupyter Notebook']
+      - ['Lab', '1']
+      - ['Notebook', '0']
   num_cores:
     widget: 'number_field'
     label: 'Number of cores'
