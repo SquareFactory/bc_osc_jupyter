@@ -47,7 +47,7 @@ fi
 
 # Launch the Jupyter Notebook Server
 srun --container-workdir=${HOME} \
-  --container-image="<% if use_image_cache == true ? '$IMAGE_FULLPATH' : '$IMAGE' %>" \
+  --container-image="<%= use_image_cache == true ? '$IMAGE_FULLPATH' : '$IMAGE' %>" \
   --no-container-remap-root \
   --container-mount-home \
   --container-writable \
