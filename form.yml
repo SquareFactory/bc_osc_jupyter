@@ -46,12 +46,13 @@ attributes:
     step: 1
     id: 'mem_per_node'
   image:
-    widget: 'text_field'
+    widget: 'url_field'
     label: 'Docker/Singularity Image'
     value: 'tensorflow/tensorflow:latest-gpu-jupyter'
     help: |
       A python 3 container image. `pip install -U jupyter && pip install -U jupyterlab` will be run to be able to start jupyter.
     id: 'image'
+    required: true
 
   # Set the corresponding modules that need to be loaded for Jupyter to run
   #
