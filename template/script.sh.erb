@@ -17,7 +17,7 @@ echo "TIMING - Starting jupyter at: $(date)"
 CACHE_PATH="/opt/cache/pyxis"
 IMAGE="<%= context.image ? context.image : 'tensorflow/tensorflow:latest-gpu-jupyter' %>"
 
-<% if use_image_cache == true %>
+<% if context.use_image_cache == true %>
 IMAGE_DIR="$CACHE_PATH/$(dirname "$IMAGE")"
 IMAGE_FULLPATH="$CACHE_PATH/$IMAGE"
 
@@ -47,7 +47,7 @@ fi
 
 # Launch the Jupyter Notebook Server
 srun --container-workdir=${HOME} \
-  --container-image="<%= use_image_cache == true ? '$IMAGE_FULLPATH' : '$IMAGE' %>" \
+  --container-image="<%= context.use_image_cache == true ? '$IMAGE_FULLPATH' : '$IMAGE' %>" \
   --no-container-remap-root \
   --container-mount-home \
   --container-writable \
