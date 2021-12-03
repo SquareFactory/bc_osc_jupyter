@@ -20,8 +20,6 @@ IMAGE_DIR="$CACHE_PATH/$(dirname "$IMAGE")"
 IMAGE_FULLPATH="$CACHE_PATH/$IMAGE"
 
 mkdir -p $IMAGE_DIR
-chmod -R 775 $CACHE_PATH || true
-chown -R slurm:cluster-users $CACHE_PATH || true
 if [ ! -f "$IMAGE_FULLPATH" ]; then
 	srun --ntasks=1 --mem=0 \
 		--container-image="$IMAGE" \
