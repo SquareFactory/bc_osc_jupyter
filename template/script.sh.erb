@@ -15,4 +15,9 @@ cd "${HOME}"
 echo "TIMING - Starting jupyter at: $(date)"
 
 # Launch the Jupyter Notebook Server
-jupyter <%= context.mode == "1" ? "lab" : "notebook" %> --config="${CONFIG_FILE}" <%= context.extra_jupyter_args %>
+srun --container-workdir=${HOME} \
+  --container-image=tensorflow/tensorflow:latest-gpu-jupyter \
+  --no-container-remap-root \
+  --container-mount-home \
+  --container-writable \
+  jupyter <%= context.mode == "1" ? "lab" : "notebook" %> --config="${CONFIG_FILE}" <%= context.extra_jupyter_args %>
