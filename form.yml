@@ -46,7 +46,7 @@ attributes:
     step: 1
     id: 'mem_per_node'
   image:
-    widget: 'image'
+    widget: 'text_field'
     label: 'Docker/Singularity Image'
     value: 'tensorflow/tensorflow:latest-gpu-jupyter'
     help: |
