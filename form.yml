@@ -58,7 +58,7 @@ attributes:
   use_image_cache:
     widget: 'check_box'
     label: 'Use Image Cache'
-    value: true
+    value: '1'
     help: |
       The image will be downloaded once and then reused for 30 days.
     id: 'use_image_cache'
