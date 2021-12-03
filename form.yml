@@ -3,16 +3,48 @@
 # @note Used to define the submitted cluster, title, description, and
 #   hard-coded/user-defined attributes that make up this Batch Connect app.
 ---
-
 # **MUST** set cluster id here that matches cluster configuration file located
 # under /etc/ood/config/clusters.d/*.yml
 # @example Use the Owens cluster at Ohio Supercomputer Center
 #     cluster: "owens"
-cluster: ""
+cluster: 'reindeerpizza'
 
 # Define attribute values that aren't meant to be modified by the user within
 # the Dashboard form
 attributes:
+  mode:
+  widget: 'radio'
+  value: '1'
+  options:
+    - ['1', 'Jupyter Lab']
+    - ['0', 'Jupyter Notebook']
+  num_cores:
+    widget: 'number_field'
+    label: 'Number of cores'
+    value: 1
+    min: 0
+    max: 16
+    step: 1
+    id: 'num_cores'
+  gpus_per_node:
+    widget: 'number_field'
+    label: 'Number of GPUs'
+    value: 0
+    min: 0
+    max: 4
+    step: 1
+    id: 'gpus_per_node'
+  mem_per_node:
+    widget: 'number_field'
+    label: 'Memory (MB)'
+    value: 1024
+    help: |
+      Blank value means all the node's available memory.
+    min: 1024
+    max: 120000
+    step: 1
+    id: 'mem_per_node'
+
   # Set the corresponding modules that need to be loaded for Jupyter to run
   #
   # @note It is called within the batch job as `module load <modules>` if
@@ -25,11 +57,11 @@ attributes:
   #     modules: "python/3.5"
   # @example Using combination of modules
   #     modules: "python/3.5 cuda/8.0.44"
-  modules: "python"
+  # modules: 'python'
 
   # Any extra command line arguments to feed to the `jupyter notebook ...`
   # command that launches the Jupyter notebook within the batch job
-  extra_jupyter_args: ""
+  extra_jupyter_args: ''
 
 # All of the attributes that make up the Dashboard form (in respective order),
 # and made available to the submit configuration file and the template ERB
@@ -41,10 +73,14 @@ attributes:
 #   option, then it will not appear in the form page that the user sees in the
 #   Dashboard
 form:
-  - modules
-  - extra_jupyter_args
+  # - modules
   - bc_account
   - bc_queue
   - bc_num_hours
   - bc_num_slots
-  - bc_email_on_started
+  #- bc_email_on_started
+  - mode
+  - extra_jupyter_args
+  - num_cores
+  - mem_per_node
+  - gpus_per_node
