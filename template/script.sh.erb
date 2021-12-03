@@ -40,10 +40,13 @@ if [ "$tries" -ge 10 ]; then
 	exit 1
 fi
 
+. $LMOD_PKG/init/sh
+
 # Launch the Jupyter Notebook Server
 srun --container-workdir=${HOME} \
   --container-image="$IMAGE_FULLPATH" \
   --no-container-remap-root \
   --container-mount-home \
   --container-writable \
+  --container-mounts=/opt/gentoo:/opt/gentoo:ro,/opt/cvmfs:/opt/cvmfs:ro \
   jupyter <%= context.mode == "1" ? "lab" : "notebook" %> --config="${CONFIG_FILE}" <%= context.extra_jupyter_args %>
