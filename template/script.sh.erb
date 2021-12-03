@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+set -ex
 
 # Benchmark info
 echo "TIMING - Starting main script at: $(date)"
@@ -14,9 +14,35 @@ cd "${HOME}"
 # Benchmark info
 echo "TIMING - Starting jupyter at: $(date)"
 
+CACHE_PATH="/opt/cache/pyxis/"
+IMAGE="tensorflow/tensorflow:latest-gpu-jupyter"
+IMAGE_DIR=$(dirname "$IMAGE")
+
+mkdir -p $IMAGE_DIR
+chmod -r 777 $IMAGE_DIR || true
+if [ ! -f "$CACHE_PATH/$IMAGE" ]; then
+	srun --ntasks=1 --mem=0 \
+		--container-image=tensorflow/$IMAGE \
+		--container-save="$CACHE_PATH/$IMAGE" \
+		true
+fi
+
+tries=1; while [ "$tries" -lt 10 ]; do
+	if file "$CACHE_PATH/$IMAGE" | grep -q "Squashfs filesystem"; then
+		break
+	fi
+	echo "Image is not complete. Wait a few seconds... ($tries/10)"
+	sleep 10
+	tries=$((tries+1))
+done
+if [ "$tries" -ge 10 ]; then
+	echo "Image import failure. Please try an another experiment."
+	exit 1
+fi
+
 # Launch the Jupyter Notebook Server
 srun --container-workdir=${HOME} \
-  --container-image=tensorflow/tensorflow:latest-gpu-jupyter \
+  --container-image=$CACHE_PATH/$$IMAGE \
   --no-container-remap-root \
   --container-mount-home \
   --container-writable \
