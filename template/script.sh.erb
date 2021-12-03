@@ -57,4 +57,4 @@ srun --container-workdir=${HOME} \
     && pip install -U jupyter \
     && pip install -U jupyterlab \
     && jupyter kernelspec list \
-    && jupyter <%= context.mode == '1' ? 'lab' : 'notebook' %> --config=\"${CONFIG_FILE}\" <%= context.extra_jupyter_args %>"
+    && PYTHONPATH=\${PYTHONPATH}:$LMOD_PKG/init jupyter <%= context.mode == '1' ? 'lab' : 'notebook' %> --config=\"${CONFIG_FILE}\" <%= context.extra_jupyter_args %>"
