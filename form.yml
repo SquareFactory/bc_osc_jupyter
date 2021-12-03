@@ -90,6 +90,6 @@ form:
   - num_cores
   - mem_per_node
   - gpus_per_node
+  - image
   - extra_jupyter_args
   - mode
-  - image
