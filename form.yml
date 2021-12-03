@@ -46,13 +46,23 @@ attributes:
     step: 1
     id: 'mem_per_node'
   image:
-    widget: 'url_field'
+    widget: 'text_field'
     label: 'Docker/Singularity Image'
     value: 'tensorflow/tensorflow:latest-gpu-jupyter'
     help: |
-      A python 3 container image. `pip install -U jupyter && pip install -U jupyterlab` will be run to be able to start jupyter.
+      A python 3 container image. `pip install -U jupyter && pip install -U jupyterlab` will be run to be able to start jupyter. `tensorflow/tensorflow:latest-gpu-jupyter` is our favorite.
     id: 'image'
     required: true
+    pattern: ^(?:(?=[^:\/]{1,253})(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(?:\.(?!-)[a-zA-Z0-9-]{1,63}(?<!-))*(?::[0-9]{1,5})?\/)?((?![._-])(?:[a-z0-9._-]*)(?<![._-])(?:\/(?![._-])[a-z0-9._-]*(?<![._-]))*)(?::(?![.-])[a-zA-Z0-9_.-]{1,128})?$
+    cacheable: true
+  use_image_cache:
+    widget: 'check_box'
+    label: 'Use Image Cache'
+    value: true
+    help: |
+      The image will be downloaded once and then reused for 30 days.
+    id: 'use_image_cache'
+    cacheable: true
 
   # Set the corresponding modules that need to be loaded for Jupyter to run
   #
@@ -92,5 +102,6 @@ form:
   - mem_per_node
   - gpus_per_node
   - image
+  - use_image_cache
   - extra_jupyter_args
   - mode
