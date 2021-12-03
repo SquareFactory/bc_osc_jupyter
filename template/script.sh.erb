@@ -49,7 +49,7 @@ srun --container-workdir=${HOME} \
   --container-mount-home \
   --container-writable \
   --preserve-env \
-  --container-mounts=/opt/gentoo:/opt/gentoo:ro,/opt/cvmfs:/opt/cvmfs:ro \
+  --container-mounts=/opt/gentoo:/opt/gentoo:ro,/opt/cvmfs:/opt/cvmfs:ro,/etc/slurm/taskprolog:/etc/slurm/taskprolog:ro \
   sh -c '. $LMOD_PKG/init/sh
     && jupyter kernelspec list \
     && jupyter <%= context.mode == "1" ? "lab" : "notebook" %> --config="${CONFIG_FILE}" <%= context.extra_jupyter_args %>'
