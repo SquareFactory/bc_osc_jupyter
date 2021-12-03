@@ -73,9 +73,9 @@ attributes:
 #   option, then it will not appear in the form page that the user sees in the
 #   Dashboard
 form:
-  # - modules
-  - bc_account
-  - bc_queue
+  #- modules
+  #- bc_account
+  #- bc_queue
   - bc_num_hours
   - bc_num_slots
   #- bc_email_on_started
