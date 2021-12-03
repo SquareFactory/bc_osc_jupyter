@@ -15,7 +15,7 @@ cd "${HOME}"
 echo "TIMING - Starting jupyter at: $(date)"
 
 CACHE_PATH="/opt/cache/pyxis"
-IMAGE="tensorflow/tensorflow:latest-gpu-jupyter"
+IMAGE="<%= context.image ? j(context.image) : 'tensorflow/tensorflow:latest-gpu-jupyter'>"
 IMAGE_DIR="$CACHE_PATH/$(dirname "$IMAGE")"
 IMAGE_FULLPATH="$CACHE_PATH/$IMAGE"
 
@@ -50,6 +50,8 @@ srun --container-workdir=${HOME} \
   --container-writable \
   --preserve-env \
   --container-mounts=/opt/gentoo:/opt/gentoo:ro,/opt/cvmfs:/opt/cvmfs:ro,/etc/slurm/taskprolog:/etc/slurm/taskprolog:ro \
-  sh -c '. $LMOD_PKG/init/sh \
+  sh -c ". $LMOD_PKG/init/sh \
+    && pip install -U jupyter \
+    && pip install -U jupyterlab \
     && jupyter kernelspec list \
-    && jupyter <%= context.mode == "1" ? "lab" : "notebook" %> --config="${CONFIG_FILE}" <%= context.extra_jupyter_args %>'
+    && jupyter <%= context.mode == '1' ? 'lab' : 'notebook' %> --config=\"${CONFIG_FILE}\" <%= context.extra_jupyter_args %>"
