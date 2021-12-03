@@ -34,3 +34,9 @@ script:
     - "<%= gpus_per_node.blank? ? 0 : gpus_per_node.to_i %>"
     - "--mem"
     - "<%= mem_per_node.blank? ? 0 : mem_per_node.to_i %>"
+    # Pyxis settings
+    - "--container-workdir=${HOME}"
+    - "--container-image=tensorflow/tensorflow:latest-gpu-jupyter"
+    - "--no-container-remap-root"
+    - "--container-mount-home"
+    - "--container-writable"  # This allows pip install

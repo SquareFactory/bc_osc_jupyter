@@ -10,15 +10,6 @@ cd "${HOME}"
 #
 # Start Jupyter Notebook Server
 #
-# Purge the module environment to avoid conflicts
-. $LMOD_PKG/init/sh
-module purge
-module load gentoo
-
-module list
-
-# Load Jupyter environment # TODO: Check for side-effects
-. /opt/gentoo/usr/local/share/jupyter-notebook/bin/activate
 
 # Benchmark info
 echo "TIMING - Starting jupyter at: $(date)"
