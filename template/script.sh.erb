@@ -14,7 +14,7 @@ cd "${HOME}"
 # Benchmark info
 echo "TIMING - Starting jupyter at: $(date)"
 
-CACHE_PATH="/opt/cache/pyxis/"
+CACHE_PATH="/opt/cache/pyxis"
 IMAGE="tensorflow/tensorflow:latest-gpu-jupyter"
 IMAGE_DIR="$CACHE_PATH/$(dirname "$IMAGE")"
 IMAGE_FULLPATH="$CACHE_PATH/$IMAGE"
