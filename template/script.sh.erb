@@ -52,7 +52,7 @@ srun --container-workdir=${HOME} \
   --container-mount-home \
   --container-writable \
   --preserve-env \
-  --container-mounts=/opt/gentoo:/opt/gentoo:ro,/opt/cvmfs:/opt/cvmfs:ro \
+  --container-mounts=/opt/stdenv:/opt/stdenv:ro,/opt/software:/opt/software:ro \
   sh -c ". $LMOD_PKG/init/sh \
     && pip install -U jupyter \
     && pip install -U jupyterlab \
