@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ex
+set -e
 
 # Benchmark info
 echo "TIMING - Starting main script at: $(date)"
@@ -44,6 +44,8 @@ fi
 <% end %>
 
 . $LMOD_PKG/init/sh
+
+set -ex
 
 # Launch the Jupyter Notebook Server
 srun --container-workdir=${HOME} \
