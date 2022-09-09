@@ -28,7 +28,7 @@ attributes:
   mem_per_node:
     widget: 'number_field'
     label: 'Memory (MB)'
-    value: 1024
+    value:
     help: |
       Blank value means all the node's available memory.
     min: 1024
