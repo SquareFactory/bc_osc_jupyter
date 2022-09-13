@@ -3,7 +3,7 @@
 # the Dashboard form
 attributes:
   mode:
-    widget: 'radio'
+    widget: 'select'
     label: 'Jupyter Platform'
     checked: '1'
     options:
