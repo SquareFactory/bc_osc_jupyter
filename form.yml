@@ -40,7 +40,7 @@ attributes:
     label: 'Docker/Singularity Image'
     value: 'default'
     help: |
-      A python 3 container image. `pip install -U jupyter && pip install -U jupyterlab` will be run to be able to start jupyter. `pytorch/pytorch:1.13.0-cuda11.6-cudnn8-runtime` is our favorite. Use `default` to use a precompiled version of the image.
+      A python 3 container image. `pip install -U jupyter && pip install -U jupyterlab` will be run to be able to start jupyter. The image `pytorch/pytorch:1.13.0-cuda11.6-cudnn8-runtime` is our favorite. Use `default` to use a precompiled version of the image.
     id: 'image'
     required: true
     cacheable: true
@@ -49,7 +49,7 @@ attributes:
     label: 'Use Image Cache'
     value: '1'
     help: |
-      The image will be downloaded once and then reused for 30 days. `default` is already in the cache.
+      The image will be downloaded once and then reused for 30 days. The `default` image is already in the cache.
     id: 'use_image_cache'
     cacheable: true
 

@@ -66,9 +66,14 @@ srun --container-workdir=${HOME} \
 
 <% else %>
 
+. $LMOD_PKG/init/sh
+
+set -ex
+
 srun /usr/bin/singularity exec \
   --nv \
   '/opt/unpacked/localhost:5000/library/pytorch:1.13.0-cuda11.6-cudnn8-runtime/' \
+  sh -c ". $LMOD_PKG/init/sh \
   sh -c "PYTHONPATH=\${PYTHONPATH}:$LMOD_PKG/init jupyter <%= context.mode == '1' ? 'lab' : 'notebook' %> --config=\"${CONFIG_FILE}\" <%= context.extra_jupyter_args %>"
 
 <% end %>
