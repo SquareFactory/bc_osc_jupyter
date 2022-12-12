@@ -38,19 +38,18 @@ attributes:
   image:
     widget: 'text_field'
     label: 'Docker/Singularity Image'
-    value: 'tensorflow/tensorflow:latest-gpu-jupyter'
+    value: 'default'
     help: |
-      A python 3 container image. `pip install -U jupyter && pip install -U jupyterlab` will be run to be able to start jupyter. `tensorflow/tensorflow:latest-gpu-jupyter` is our favorite.
+      A python 3 container image. `pip install -U jupyter && pip install -U jupyterlab` will be run to be able to start jupyter. `pytorch/pytorch:1.13.0-cuda11.6-cudnn8-runtime` is our favorite. Use `default` to use a precompiled version of the image.
     id: 'image'
     required: true
-    pattern: ^(?:(?=[^:\/]{1,253})(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(?:\.(?!-)[a-zA-Z0-9-]{1,63}(?<!-))*(?::[0-9]{1,5})?\/)?((?![._-])(?:[a-z0-9._-]*)(?<![._-])(?:\/(?![._-])[a-z0-9._-]*(?<![._-]))*)(?::(?![.-])[a-zA-Z0-9_.-]{1,128})?$
     cacheable: true
   use_image_cache:
     widget: 'check_box'
     label: 'Use Image Cache'
     value: '1'
     help: |
-      The image will be downloaded once and then reused for 30 days.
+      The image will be downloaded once and then reused for 30 days. `default` is already in the cache.
     id: 'use_image_cache'
     cacheable: true
 
