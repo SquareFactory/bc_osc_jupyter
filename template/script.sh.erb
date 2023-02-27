@@ -17,7 +17,7 @@ echo "TIMING - Starting jupyter at: $(date)"
 <% if context.image != "default" %>
 
 CACHE_PATH="/opt/cache/pyxis"
-IMAGE="<%= context.image ? context.image : 'tensorflow/tensorflow:latest-gpu-jupyter' %>"
+IMAGE="<%= context.image ? context.image : 'registry-1.docker.io/pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime' %>"
 
 <% if context.use_image_cache == "1" %>
 IMAGE_DIR="$CACHE_PATH/$(dirname "$IMAGE")"
@@ -46,8 +46,6 @@ if [ "$tries" -ge 10 ]; then
 fi
 <% end %>
 
-. $LMOD_PKG/init/sh
-
 set -ex
 
 # Launch the Jupyter Notebook Server
@@ -57,23 +55,18 @@ srun --container-workdir=${HOME} \
   --container-mount-home \
   --container-writable \
   --preserve-env \
-  --container-mounts=/opt/stdenv:/opt/stdenv:ro,/opt/software:/opt/software:ro \
-  sh -c ". $LMOD_PKG/init/sh \
-    && pip install -U jupyter \
+  sh -c "pip install -U jupyter \
     && pip install -U jupyterlab \
     && jupyter kernelspec list \
-    && PYTHONPATH=\${PYTHONPATH}:$LMOD_PKG/init jupyter <%= context.mode == '1' ? 'lab' : 'notebook' %> --config=\"${CONFIG_FILE}\" <%= context.extra_jupyter_args %>"
+    && jupyter <%= context.mode == '1' ? 'lab' : 'notebook' %> --config=\"${CONFIG_FILE}\" <%= context.extra_jupyter_args %>"
 
 <% else %>
 
-. $LMOD_PKG/init/sh
-
 set -ex
 
-srun /usr/bin/singularity exec \
+srun /usr/bin/apptainer exec \
   --nv \
-  '/opt/unpacked/localhost:5000/library/pytorch:1.13.0-cuda11.6-cudnn8-runtime/' \
-  sh -c ". $LMOD_PKG/init/sh \
-  sh -c "PYTHONPATH=\${PYTHONPATH}:$LMOD_PKG/init jupyter <%= context.mode == '1' ? 'lab' : 'notebook' %> --config=\"${CONFIG_FILE}\" <%= context.extra_jupyter_args %>"
+  '/opt/software/registry-1.docker.io/pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime/' \
+  jupyter <%= context.mode == '1' ? 'lab' : 'notebook' %> --config="${CONFIG_FILE}" <%= context.extra_jupyter_args %>
 
 <% end %>
