@@ -66,7 +66,7 @@ set -ex
 
 srun /usr/bin/apptainer exec \
   --nv \
-  '/opt/software/registry-1.deepsquare.run/nvidia/pytorch:23.01-py3/' \
+  '/opt/software/registry-1.deepsquare.run/library/pytorch:23.01-py3/' \
   jupyter <%= context.mode == '1' ? 'lab' : 'notebook' %> --config="${CONFIG_FILE}" <%= context.extra_jupyter_args %>
 
 <% end %>
